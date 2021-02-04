@@ -34,11 +34,11 @@ defmodule Tree do
 
   """
   def add(%Node{children: children} = tree, %Node{} = child) do
-    %Node{tree | children: [child | children]}
+    %Node{tree | children: children ++ [child]}
   end
 
   def add(%Node{children: children} = tree, data) do
-    %Node{tree | children: [new(data) | children]}
+    %Node{tree | children: children ++ [new(data)]}
   end
 
   @doc """
@@ -60,14 +60,16 @@ defmodule Tree do
   ## Examples
 
       iex> subtree = Tree.new(1) |> Tree.add(2)
-      iex> tree = Tree.new(3) |> Tree.add(4) |> Tree.add(subtree)
+      iex> tree = Tree.new(3) |> Tree.add(subtree) |> Tree.add(4)
       iex> Tree.traverse(tree)
       [3, 1, 4, 2]
       iex> Tree.traverse(tree, :depth)
       [3, 1, 2, 4]
   """
   def traverse(%Node{} = tree, order \\ :breadth) when order in @orders do
-    do_traverse([tree], order, []) |> Enum.reverse()
+    [tree]
+    |> do_traverse(order, [])
+    |> Enum.reverse()
   end
 
   defp do_traverse([], _mode, collected) do

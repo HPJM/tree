@@ -34,16 +34,16 @@ defmodule TreeTest do
   describe "traverse/2" do
     test "traverses breadth first by default" do
       subtree = Tree.new(3) |> Tree.add(1)
-      tree = Tree.new(2) |> Tree.add(100) |> Tree.add(4) |> Tree.add(subtree)
+      tree = Tree.new(2) |> Tree.add(subtree) |> Tree.add(100) |> Tree.add(4)
 
-      assert Tree.traverse(tree) == [2, 3, 4, 100, 1]
+      assert Tree.traverse(tree) == [2, 3, 100, 4, 1]
     end
 
     test "can traverse depth first" do
       subtree = Tree.new(3) |> Tree.add(1)
-      tree = Tree.new(2) |> Tree.add(100) |> Tree.add(4) |> Tree.add(subtree)
+      tree = Tree.new(2) |> Tree.add(subtree) |> Tree.add(100) |> Tree.add(4)
 
-      assert Tree.traverse(tree, :depth) == [2, 3, 1, 4, 100]
+      assert Tree.traverse(tree, :depth) == [2, 3, 1, 100, 4]
     end
   end
 end
