@@ -34,4 +34,17 @@ defmodule Tree do
   def add(%Node{children: children} = tree, data) do
     %Node{tree | children: [new(data) | children]}
   end
+
+  @doc """
+  Removes a child of the tree.
+
+  ## Examples
+
+      iex> tree = Tree.new(2) |> Tree.add(4) |> Tree.remove(4)
+      iex> tree.children
+      []
+  """
+  def remove(%Node{children: children} = tree, data) do
+    %Node{tree | children: Enum.reject(children, &(&1.data == data))}
+  end
 end
