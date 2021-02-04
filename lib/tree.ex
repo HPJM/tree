@@ -16,8 +16,8 @@ defmodule Tree do
       %Tree.Node{data: 2}
 
   """
-  def new(data) do
-    %Node{data: data}
+  def new(data, children \\ []) do
+    %Node{data: data, children: children}
   end
 
   @doc """
