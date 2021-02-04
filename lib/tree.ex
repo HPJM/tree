@@ -33,12 +33,12 @@ defmodule Tree do
       4
 
   """
-  def add(%Node{children: children} = tree, %Node{} = child) do
-    %Node{tree | children: children ++ [child]}
+  def add(%Node{children: children, data: data}, %Node{} = child) do
+    new(data, children ++ [child])
   end
 
-  def add(%Node{children: children} = tree, data) do
-    %Node{tree | children: children ++ [new(data)]}
+  def add(%Node{children: children, data: data}, value) do
+    new(data, children ++ [new(value)])
   end
 
   @doc """
@@ -50,8 +50,8 @@ defmodule Tree do
       iex> tree.children
       []
   """
-  def remove(%Node{children: children} = tree, data) do
-    %Node{tree | children: Enum.reject(children, &(&1.data == data))}
+  def remove(%Node{children: children, data: data}, value) do
+    new(data, Enum.reject(children, &(&1.data == value)))
   end
 
   @doc """
