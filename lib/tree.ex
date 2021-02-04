@@ -31,6 +31,10 @@ defmodule Tree do
       4
 
   """
+  def add(%Node{children: children} = tree, %Node{} = child) do
+    %Node{tree | children: [child | children]}
+  end
+
   def add(%Node{children: children} = tree, data) do
     %Node{tree | children: [new(data) | children]}
   end
